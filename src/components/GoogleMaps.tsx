@@ -8,8 +8,7 @@ export default function GoogleMaps() {
   const [marker, setMarker] = useState<
     { lat: number; lng: number } | undefined
   >();
-//   console.log(marker);
-  console.log(map);
+
 
   useEffect(() => {
     if (ref.current && !map) {
@@ -44,7 +43,10 @@ export default function GoogleMaps() {
 
   return (
     <>
-      <div ref={ref as any} className="google-map"></div>
+      <div
+        ref={ref as any}
+      className="google-map"
+      ></div>
     </>
   );
 }
