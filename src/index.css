@@ -1,4 +1,4 @@
-@import-normalize; 
+@import-normalize;
 * {
   box-sizing: border-box;
   margin: 0;
@@ -15,7 +15,7 @@ h3,
 span,
 button,
 input {
-  font-family: 'Monrope', sans-serif;
+  font-family: "Monrope", sans-serif;
 }
 a {
   text-decoration: none;
@@ -29,4 +29,41 @@ img {
   display: block;
   max-width: 100%;
   height: auto;
+}
+body {
+  background-color: lightcyan;
+}
+.app {
+  margin: 0 auto;
+  padding: 24px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 32px;
+}
+
+.logo {
+  display: flex;
+  column-gap: 24px;
+}
+
+.hero {
+  font-size: 68px;
+  background-image: linear-gradient(
+    270deg,
+    #4285f4 10%,
+    #34a853 33%,
+    #fbbc05 66%,
+    #ea4335 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.google-map {
+  width: 900px;
+  min-height:700px;
+  border-radius: 12px;
+
 }
