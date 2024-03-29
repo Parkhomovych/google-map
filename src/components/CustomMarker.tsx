@@ -1,5 +1,5 @@
 import { AdvancedMarker, InfoWindow, Pin } from "@vis.gl/react-google-maps";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Location } from "../types/Marks";
 type Props = {
   id: string;
