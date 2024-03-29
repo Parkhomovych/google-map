@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { DragEventHandler, useEffect, useState } from "react";
 import { APIProvider, Map } from "@vis.gl/react-google-maps";
 import { nanoid } from "nanoid";
 import { Location, Mark } from "../types/Marks";
@@ -31,7 +31,6 @@ export default function GoogleMaps() {
       lat: e.latLng.lat(),
       lng: e.latLng.lng(),
     };
-
     updateLocation(id, location);
   };
   const handleDocumentClick = (e: MouseEvent) => {
