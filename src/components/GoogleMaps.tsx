@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { APIProvider, Map, useMap } from "@vis.gl/react-google-maps";
+import { APIProvider, Map } from "@vis.gl/react-google-maps";
 import { nanoid } from "nanoid";
 import { Location, Mark } from "../types/Marks";
 import CustomMarker from "./CustomMarker";
@@ -7,7 +7,7 @@ import { addMark } from "../firebase/db/addMarker";
 import { getMarks } from "../firebase/db/getMarks";
 import { deliteMark as deleteMarkFromFirebase } from "../firebase/db/delteMarker";
 import { updateLocation } from "../firebase/db/updateLocation";
-import { MarkerClusterer } from "@googlemaps/markerclusterer";
+
 
 export default function GoogleMaps() {
   const [markers, setMarks] = useState<Mark[]>([]);
@@ -62,7 +62,7 @@ export default function GoogleMaps() {
 
     getAllMarks();
   }, []);
-  // const map = useMap();
+
 
   return (
     <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
