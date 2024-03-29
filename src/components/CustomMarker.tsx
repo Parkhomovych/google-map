@@ -1,9 +1,10 @@
 import { AdvancedMarker, InfoWindow, Pin } from "@vis.gl/react-google-maps";
 import { useState } from "react";
-import { Location } from "../types/Marks";
+import { Mark } from "../types/Marks";
 type Props = {
+  data: Mark[];
   id: string;
-  location: Location;
+  location: google.maps.LatLngLiteral;
   remove: (id: string) => void;
   hendlreLocation: (e: any, id: string) => void;
   protectClick: () => void;
@@ -21,7 +22,6 @@ export default function CustomMarker({
   const hendleOpen = () => {
     setOpen((open) => !open);
   };
-
   return (
     <>
       <AdvancedMarker
@@ -30,12 +30,12 @@ export default function CustomMarker({
         onDragStart={() => protectClick()}
         onDragEnd={(e) => {
           hendlreLocation(e, id);
-        if (e.latLng) {
-          setLoc({
-            lat: e.latLng.lat(),
-            lng: e.latLng.lng(),
-          });
-        }
+          if (e.latLng) {
+            setLoc({
+              lat: e.latLng.lat(),
+              lng: e.latLng.lng(),
+            });
+          }
         }}
         draggable={true}
         key={id}

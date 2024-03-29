@@ -8,10 +8,10 @@ import { getMarks } from "../firebase/db/getMarks";
 import { deliteMark as deleteMarkFromFirebase } from "../firebase/db/delteMarker";
 import { updateLocation } from "../firebase/db/updateLocation";
 
-
 export default function GoogleMaps() {
-  const [markers, setMarks] = useState<Mark[]>([]);
+  const [dataMarkers, setDataMarkers] = useState<Mark[]>([]);
   const [isDraggingMarker, setIsDraggingMarker] = useState(false);
+  const [markers, setMarkers] = useState<google.maps.LatLngLiteral[] | null>();
 
   const addMarks = (e: any) => {
     const data: Mark = {
@@ -19,12 +19,12 @@ export default function GoogleMaps() {
       id: nanoid(),
       timestamp: new Date(),
     };
-    setMarks([...markers, data]);
+    setDataMarkers([...dataMarkers, data]);
     addMark(data);
   };
   const deleteMark = (id: string) => {
-    const data = markers.filter((el) => el.id !== id);
-    setMarks(data);
+    const data = dataMarkers.filter((el) => el.id !== id);
+    setDataMarkers(data);
     deleteMarkFromFirebase(id);
   };
   const hendlreLocation = (e: any, id: string) => {
@@ -55,14 +55,18 @@ export default function GoogleMaps() {
   useEffect(() => {
     const getAllMarks = async () => {
       const data = await getMarks();
+      const mark: google.maps.LatLngLiteral[] | null = [];
       if (data) {
-        setMarks(data);
-      }
-    };
+        data.forEach((el: Mark) => {
+          mark.push(el.location);
+        });
 
+        setMarkers(mark);
+        setDataMarkers(data);
+      }
+    }
     getAllMarks();
   }, []);
-
 
   return (
     <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
@@ -73,12 +77,13 @@ export default function GoogleMaps() {
           defaultCenter={{ lat: 49.83693641450805, lng: 24.033562862249898 }}
           mapId={import.meta.env.VITE_GOOGLE_MAP_ID}
         >
-          {markers.map(({ location, id }) => (
+          {dataMarkers.map(({ location, id }) => (
             <CustomMarker
               remove={deleteMark}
               hendlreLocation={hendlreLocation}
               protectClick={handleisDraggingMarker}
               location={location}
+              data={dataMarkers}
               id={id}
               key={id}
             />
