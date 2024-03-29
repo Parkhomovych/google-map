@@ -16,6 +16,7 @@ export default function CustomMarker({
   protectClick,
 }: Props) {
   const [open, setOpen] = useState(false);
+  const [loc, setLoc] = useState(location);
 
   const hendleOpen = () => {
     setOpen((open) => !open);
@@ -24,23 +25,28 @@ export default function CustomMarker({
   return (
     <>
       <AdvancedMarker
-        position={location}
+        position={loc}
         onClick={hendleOpen}
         onDragStart={() => protectClick()}
         onDragEnd={(e) => {
           hendlreLocation(e, id);
+          setLoc({
+            lat: e.latLng.lat() ,
+            lng: e.latLng.lng(),
+          });
         }}
         draggable={true}
         key={id}
       >
         <Pin
+          scale={1.3}
           background={"blue"}
           borderColor={"blue"}
           glyphColor={"yellow"}
         ></Pin>
       </AdvancedMarker>
       {open && (
-        <InfoWindow position={location} onCloseClick={hendleOpen}>
+        <InfoWindow minWidth={14} position={loc} onCloseClick={hendleOpen}>
           <ul
             style={{
               display: "flex",
@@ -50,10 +56,10 @@ export default function CustomMarker({
             }}
           >
             <li>
-              <span>Lat: {location.lat}</span>
+              <span>Lat: {loc.lat}</span>
             </li>
             <li>
-              <span>Long: {location.lng}</span>
+              <span>Long: {loc.lng}</span>
             </li>
           </ul>
           <button

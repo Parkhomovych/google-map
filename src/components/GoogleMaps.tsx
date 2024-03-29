@@ -31,21 +31,20 @@ export default function GoogleMaps() {
       lat: e.latLng.lat(),
       lng: e.latLng.lng(),
     };
-    console.log(location);
-
     updateLocation(id, location);
   };
-  const handleDocumentClick = (e: MouseEvent) => {
-    if (isDraggingMarker) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-  };
+
   const handleisDraggingMarker = () => {
     setIsDraggingMarker((prevState) => !prevState);
   };
 
   useEffect(() => {
+    const handleDocumentClick = (e: MouseEvent) => {
+      if (isDraggingMarker) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    };
     document.addEventListener("click", handleDocumentClick);
     return () => {
       document.removeEventListener("click", handleDocumentClick);
@@ -62,6 +61,7 @@ export default function GoogleMaps() {
 
     getAllMarks();
   }, []);
+
   return (
     <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
       <div style={{ height: "80vh", width: "100%" }}>
