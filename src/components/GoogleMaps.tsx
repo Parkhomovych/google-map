@@ -11,7 +11,6 @@ import { updateLocation } from "../firebase/db/updateLocation";
 export default function GoogleMaps() {
   const [dataMarkers, setDataMarkers] = useState<Mark[]>([]);
   const [isDraggingMarker, setIsDraggingMarker] = useState(false);
-  const [markers, setMarkers] = useState<google.maps.LatLngLiteral[] | null>();
 
   const addMarks = (e: any) => {
     const data: Mark = {
@@ -55,16 +54,11 @@ export default function GoogleMaps() {
   useEffect(() => {
     const getAllMarks = async () => {
       const data = await getMarks();
-      const mark: google.maps.LatLngLiteral[] | null = [];
       if (data) {
-        data.forEach((el: Mark) => {
-          mark.push(el.location);
-        });
-
-        setMarkers(mark);
         setDataMarkers(data);
       }
-    }
+    };
+
     getAllMarks();
   }, []);
 
@@ -83,7 +77,6 @@ export default function GoogleMaps() {
               hendlreLocation={hendlreLocation}
               protectClick={handleisDraggingMarker}
               location={location}
-              data={dataMarkers}
               id={id}
               key={id}
             />

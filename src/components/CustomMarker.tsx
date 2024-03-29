@@ -1,8 +1,6 @@
 import { AdvancedMarker, InfoWindow, Pin } from "@vis.gl/react-google-maps";
 import { useState } from "react";
-import { Mark } from "../types/Marks";
 type Props = {
-  data: Mark[];
   id: string;
   location: google.maps.LatLngLiteral;
   remove: (id: string) => void;
