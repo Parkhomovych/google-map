@@ -1,4 +1,4 @@
-import { DragEventHandler, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import { APIProvider, Map } from "@vis.gl/react-google-maps";
 import { nanoid } from "nanoid";
 import { Location, Mark } from "../types/Marks";
@@ -73,7 +73,7 @@ export default function GoogleMaps() {
         >
           {marks.map(({ location, id }) => (
             <CustomMarker
-              delite={deleteMark}
+              remove={deleteMark}
               hendlreLocation={hendlreLocation}
               protectClick={handleisDraggingMarker}
               location={location}

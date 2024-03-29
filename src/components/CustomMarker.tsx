@@ -1,17 +1,17 @@
 import { AdvancedMarker, InfoWindow, Pin } from "@vis.gl/react-google-maps";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Location } from "../types/Marks";
 type Props = {
   id: string;
   location: Location;
-  delite: (id: string) => void;
+  remove: (id: string) => void;
   hendlreLocation: (e: any, id: string) => void;
   protectClick: () => void;
 };
 export default function CustomMarker({
   id,
   location,
-  delite,
+  remove,
   hendlreLocation,
   protectClick,
 }: Props) {
@@ -59,7 +59,7 @@ export default function CustomMarker({
           <button
             style={{ margin: "auto" }}
             onClick={() => {
-              delite(id);
+              remove(id);
             }}
           >
             Delete
