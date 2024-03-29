@@ -1,4 +1,4 @@
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { APIProvider, Map } from "@vis.gl/react-google-maps";
 import { nanoid } from "nanoid";
 import { Location, Mark } from "../types/Marks";
@@ -53,6 +53,7 @@ export default function GoogleMaps() {
   useEffect(() => {
     const getAllMarks = async () => {
       const data = await getMarks();
+      console.log(data);
 
       if (data) {
         setMarks(data);

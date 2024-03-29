@@ -16,7 +16,7 @@ export const getMarks = async () => {
                 timestamp: data.timestamp,
                 location: {
                     lat: data.location.lat,
-                    lng: data.location.long,
+                    lng: data.location.lng,
                 },
             };
             marks.push(mark);
