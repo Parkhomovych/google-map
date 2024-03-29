@@ -31,6 +31,8 @@ export default function GoogleMaps() {
       lat: e.latLng.lat(),
       lng: e.latLng.lng(),
     };
+    console.log(location);
+
     updateLocation(id, location);
   };
   const handleDocumentClick = (e: MouseEvent) => {
@@ -53,8 +55,6 @@ export default function GoogleMaps() {
   useEffect(() => {
     const getAllMarks = async () => {
       const data = await getMarks();
-      console.log(data);
-
       if (data) {
         setMarks(data);
       }
@@ -68,7 +68,6 @@ export default function GoogleMaps() {
         <Map
           onClick={addMarks}
           defaultZoom={13}
-          disableDefaultUI={true}
           defaultCenter={{ lat: 49.83693641450805, lng: 24.033562862249898 }}
           mapId={import.meta.env.VITE_GOOGLE_MAP_ID}
         >

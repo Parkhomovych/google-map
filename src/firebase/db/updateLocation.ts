@@ -8,7 +8,7 @@ export const updateLocation = async (id: string, location: Location) => {
         const cityRef = doc(db, 'marks', id);
         await updateDoc(cityRef, {
             location: {
-                lat: location.lat, long: location.lng
+                lat: location.lat, lng: location.lng
             }
         });
     } catch (error) {
