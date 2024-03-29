@@ -1,11 +1,11 @@
-import GoogleWrapper from "./components/GoogleWrapper";
+import GoogleMaps from "./components/GoogleMaps";
 import Logo from "./components/Logo";
 
 function App() {
   return (
     <main className="app">
       <Logo />
-      <GoogleWrapper />
+      <GoogleMaps />
     </main>
   );
 }

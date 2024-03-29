@@ -33,6 +33,15 @@ img {
 body {
   background-color: lightcyan;
 }
+button {
+  padding: 4px 8px;
+  border: 1px solid black;
+  border-radius: 12px;
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;
+  display: block;
+}
 .app {
   margin: 0 auto;
   padding: 24px;
@@ -42,7 +51,10 @@ body {
   align-items: center;
   row-gap: 32px;
 }
-
+#map {
+  width: 900px;
+  height: 700px
+}
 .logo {
   display: flex;
   column-gap: 24px;
@@ -63,7 +75,10 @@ body {
 }
 .google-map {
   width: 900px;
-  min-height:700px;
+  min-height: 700px;
   border-radius: 12px;
-
+  cursor: grabbing;
+}
+.text {
+  color: #fbbc05;
 }

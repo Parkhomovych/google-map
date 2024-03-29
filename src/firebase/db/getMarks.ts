@@ -1,32 +1,26 @@
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../config";
+import { Mark } from "../../types/Marks";
 
-type Mark = {
-    id: string
-    next: string
-    timestamp: Date
-    location: {
-        lat: string
-        long: string
-    }
-}
+
 export const getMarks = async () => {
-    const querySnapshot = await getDocs(collection(db, "marks"));
     const marks: Mark[] = []
+    
+    const querySnapshot = await getDocs(collection(db, "marks"));
     querySnapshot.forEach((doc) => {
         const data = doc.data()
 
         const mark: Mark = {
             id: doc.id,
-            next: data.next,
             timestamp: data.timestamp,
             location: {
                 lat: data.location.lat,
-                long: data.location.long,
+                lng: data.location.long,
             },
         };
         marks.push(mark);
     });
+    return marks
 
-    localStorage.setItem('marks', JSON.stringify(marks))
+    // localStorage.setItem('marks', JSON.stringify(marks))
 }
