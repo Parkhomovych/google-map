@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { APIProvider, Map } from "@vis.gl/react-google-maps";
+import { APIProvider, Map, useMap } from "@vis.gl/react-google-maps";
 import { nanoid } from "nanoid";
 import { Location, Mark } from "../types/Marks";
 import CustomMarker from "./CustomMarker";
@@ -7,9 +7,10 @@ import { addMark } from "../firebase/db/addMarker";
 import { getMarks } from "../firebase/db/getMarks";
 import { deliteMark as deleteMarkFromFirebase } from "../firebase/db/delteMarker";
 import { updateLocation } from "../firebase/db/updateLocation";
+import { MarkerClusterer } from "@googlemaps/markerclusterer";
 
 export default function GoogleMaps() {
-  const [marks, setMarks] = useState<Mark[]>([]);
+  const [markers, setMarks] = useState<Mark[]>([]);
   const [isDraggingMarker, setIsDraggingMarker] = useState(false);
 
   const addMarks = (e: any) => {
@@ -18,11 +19,11 @@ export default function GoogleMaps() {
       id: nanoid(),
       timestamp: new Date(),
     };
-    setMarks([...marks, data]);
+    setMarks([...markers, data]);
     addMark(data);
   };
   const deleteMark = (id: string) => {
-    const data = marks.filter((el) => el.id !== id);
+    const data = markers.filter((el) => el.id !== id);
     setMarks(data);
     deleteMarkFromFirebase(id);
   };
@@ -61,6 +62,7 @@ export default function GoogleMaps() {
 
     getAllMarks();
   }, []);
+  // const map = useMap();
 
   return (
     <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
@@ -71,7 +73,7 @@ export default function GoogleMaps() {
           defaultCenter={{ lat: 49.83693641450805, lng: 24.033562862249898 }}
           mapId={import.meta.env.VITE_GOOGLE_MAP_ID}
         >
-          {marks.map(({ location, id }) => (
+          {markers.map(({ location, id }) => (
             <CustomMarker
               remove={deleteMark}
               hendlreLocation={hendlreLocation}

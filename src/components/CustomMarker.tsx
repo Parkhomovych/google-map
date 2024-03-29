@@ -30,19 +30,21 @@ export default function CustomMarker({
         onDragStart={() => protectClick()}
         onDragEnd={(e) => {
           hendlreLocation(e, id);
+        if (e.latLng) {
           setLoc({
-            lat: e.latLng.lat() ,
+            lat: e.latLng.lat(),
             lng: e.latLng.lng(),
           });
+        }
         }}
         draggable={true}
         key={id}
       >
         <Pin
           scale={1.3}
-          background={"blue"}
-          borderColor={"blue"}
-          glyphColor={"yellow"}
+          background="blue"
+          borderColor="blue"
+          glyphColor="orange"
         ></Pin>
       </AdvancedMarker>
       {open && (
