@@ -4,30 +4,27 @@ type Props = {
   id: string;
   location: google.maps.LatLngLiteral;
   remove: (id: string) => void;
-  hendlreLocation: (e: any, id: string) => void;
-  protectClick: () => void;
+  handlerLocation: (e: any, id: string) => void;
 };
 export default function CustomMarker({
   id,
   location,
   remove,
-  hendlreLocation,
-  protectClick,
+  handlerLocation,
 }: Props) {
   const [open, setOpen] = useState(false);
   const [loc, setLoc] = useState(location);
 
-  const hendleOpen = () => {
+  const handlerOpen = () => {
     setOpen((open) => !open);
   };
   return (
     <>
       <AdvancedMarker
         position={loc}
-        onClick={hendleOpen}
-        onDragStart={() => protectClick()}
+        onClick={handlerOpen}
         onDragEnd={(e) => {
-          hendlreLocation(e, id);
+          handlerLocation(e, id);
           if (e.latLng) {
             setLoc({
               lat: e.latLng.lat(),
@@ -46,7 +43,7 @@ export default function CustomMarker({
         ></Pin>
       </AdvancedMarker>
       {open && (
-        <InfoWindow minWidth={14} position={loc} onCloseClick={hendleOpen}>
+        <InfoWindow minWidth={14} position={loc} onCloseClick={handlerOpen}>
           <ul
             style={{
               display: "flex",
