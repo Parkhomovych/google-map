@@ -91,9 +91,14 @@ button {
   padding: 0px 17px;
   position: absolute;
   top: 10px;
-  left: 200px;
+  left: 206px;
 
   font-size: 18px;
   background: rgb(255, 255, 255);
+  border-radius: 2px;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px;
+}
+.delete-all-markers:hover {
+  background: rgb(235, 235, 235);
+
 }
