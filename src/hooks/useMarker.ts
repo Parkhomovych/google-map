@@ -1,29 +1,41 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Mark } from "../types/Marks";
 import { nanoid } from "nanoid";
 import { addMark } from "../firebase/db/addMarker";
 import { deleteMarkFromFirebase } from "../firebase/db/deleteMarkFromFirebase";
 import { updateLocation } from "../firebase/db/updateLocation";
+import { MapMouseEvent } from "@vis.gl/react-google-maps";
+import { getMarks } from "../firebase/db/getMarks";
 
-export default function useMarker() {
+
+export function useMarker() {
     const [dataMarkers, setDataMarkers] = useState<Mark[]>([]);
+    const addMarkers = (e: MapMouseEvent) => {
+        if (!e.detail.latLng) return
 
-    const addMarkers = (e: any) => {
         const data: Mark = {
             location: { lat: e.detail.latLng.lat, lng: e.detail.latLng.lng },
             id: nanoid(),
             timestamp: new Date(),
         };
-        setDataMarkers([...dataMarkers, data]);
+        setDataMarkers(prevDataMarkers => [...prevDataMarkers, data]);
         addMark(data);
     };
+
     const deleteMarker = (id: string) => {
-        const data = dataMarkers.filter((el) => el.id !== id);
-        setDataMarkers(data);
+
+        setDataMarkers(prevDataMarkers => prevDataMarkers.filter(el => el.id !== id));
         deleteMarkFromFirebase(id);
     };
+    const deleteAllMarker = () => {
+        dataMarkers.forEach((el => {
+            deleteMarkFromFirebase(el.id);
+            
+        }))
+        setDataMarkers([])
 
-    const handlerLocation = (e: any, id: string) => {
+    };
+    const handlerLocation = (e: any, id: string): void => {
         const location = {
             lat: e.latLng.lat(),
             lng: e.latLng.lng(),
@@ -31,6 +43,19 @@ export default function useMarker() {
         updateLocation(id, location);
     };
 
+    useEffect(() => {
+        const getAllMarkers = async () => {
+            try {
+                const data = await getMarks();
+                if (data) {
+                    setDataMarkers(data);
+                }
+            } catch (error) {
+                console.error('Error fetching marks:', error);
+            }
+        };
+        getAllMarkers();
+    }, [setDataMarkers]);
 
-    return { dataMarkers, setDataMarkers, addMarkers, deleteMarker, handlerLocation }
+    return { dataMarkers, setDataMarkers, addMarkers, deleteMarker, deleteAllMarker, handlerLocation }
 }

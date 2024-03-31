@@ -33,15 +33,6 @@ img {
 body {
   background-color: lightcyan;
 }
-button {
-  padding: 4px 8px;
-  border: 1px solid black;
-  border-radius: 12px;
-  outline: none;
-  background-color: transparent;
-  cursor: pointer;
-  display: block;
-}
 .app {
   margin: 0 auto;
   padding: 24px;
@@ -53,7 +44,7 @@ button {
 }
 #map {
   width: 900px;
-  height: 700px
+  height: 700px;
 }
 .logo {
   display: flex;
@@ -81,4 +72,28 @@ button {
 }
 .text {
   color: #fbbc05;
+}
+button {
+  outline: none;
+  cursor: pointer;
+  display: block;
+  border: none;
+}
+.delete-button {
+  margin: auto;
+  padding: 4px 8px;
+  border: 1px solid black;
+  border-radius: 12px;
+  background-color: transparent;
+}
+.delete-all-markers {
+  height: 40px;
+  padding: 0px 17px;
+  position: absolute;
+  top: 10px;
+  left: 200px;
+
+  font-size: 18px;
+  background: rgb(255, 255, 255);
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px;
 }
